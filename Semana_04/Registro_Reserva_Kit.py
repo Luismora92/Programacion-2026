@@ -1,0 +1,34 @@
+#Solucion Mision Kit Seguro
+#Autor: Luis Miguel Mora
+
+nombre = input("Nombre: ").strip().upper()
+kit = input("Tipo de Kit: ").strip().lower()
+autorizacion = input("Tiene autorizacion (Si/No)?: ").lower().strip() == "Si"
+
+try:
+    cantidad = int(input("Ingrese la cantidad: "))
+except ValueError:
+    print("Error cantidad invalida, asignada -1")
+    cantidad = -1
+
+try:
+    dias = int(input("Dias de Pertamo: "))
+except ValueError:
+    print("Error cantidad dias invalida, asignada -1")
+    dias = -1
+
+resultado = ""
+if nombre == "" or not kit or cantidad < 1 or dias < 1:
+    resultado = "Registro rechazado: Datos invalidos! "
+elif autorizacion and cantidad <= 3 and not dias > 7:
+    resultado = f"Solicitud aprobada para {nombre}: {cantidad} kit(s) de {kit}"
+elif cantidad > 3 or dias > 7:
+    resultado = "Solicitud enviada a revision!"
+else:
+    resultado = "Solicitud rechazada: Se requiere autorizacion"
+    
+print(resultado)
+
+
+
+
