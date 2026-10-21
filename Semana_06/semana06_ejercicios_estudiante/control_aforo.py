@@ -103,3 +103,58 @@ Otros casos para probar:
 
 
 # Desarrolle su solución a partir de esta línea.
+# Definir la capacidad máxima del escenario
+capacidad_maxima = 700
+ocupacion_actual = 0
+
+# Listas para almacenar los grupos
+grupos_aceptados = []
+grupos_rechazados = []
+
+print("--- Sistema de Control de Aforo ---")
+entrada = input("Ingrese el tamaño del grupo (o escriba 'fin' para terminar): ")
+
+# Ciclo while para recibir grupos hasta escribir 'fin' (sin usar while True)
+while entrada != "fin":
+    try:
+        # Convertir la entrada a entero 
+        grupo = int(entrada)
+        
+        # Validar que sea un entero mayor a cero
+        if grupo <= 0:
+            print("Entrada inválida. El número debe ser mayor a cero. El programa continúa.")
+        else:
+            # Evaluar si el grupo cabe en el aforo disponible (máximo 700)
+            if ocupacion_actual + grupo <= capacidad_maxima:
+                ocupacion_actual += grupo
+                grupos_aceptados.append(grupo)
+                print(f"Grupo aceptado: ingresan {grupo} personas.")
+            else:
+                grupos_rechazados.append(grupo)
+                print(f"Grupo rechazado: no hay espacio para {grupo} personas.")
+            
+            # Mostrar estado actual tras un grupo válido
+            espacios_disponibles = capacidad_maxima - ocupacion_actual
+            print(f"Ocupación actual: {ocupacion_actual}")
+            print(f"Espacios disponibles: {espacios_disponibles}")
+            
+    except ValueError:
+        print("Entrada inválida (texto no numérico). El programa continúa.")
+        
+    # Solicitar la siguiente entrada para continuar o salir del while
+    entrada = input("Ingrese el tamaño del grupo (o escriba 'fin' para terminar): ")
+
+# Usar un ciclo for para calcular el total admitido recorriendo la lista aceptada
+total_admitido = 0
+for g in grupos_aceptados:
+    total_admitido += g
+
+espacios_disponibles = capacidad_maxima - total_admitido
+
+# Reporte final
+print("\nREPORTE FINAL")
+print(f"Grupos aceptados: {len(grupos_aceptados)}")
+print(f"Grupos rechazados: {len(grupos_rechazados)}")
+print(f"Personas admitidas: {total_admitido}")
+print(f"Capacidad máxima: {capacidad_maxima}")
+print(f"Espacios disponibles: {espacios_disponibles}")
