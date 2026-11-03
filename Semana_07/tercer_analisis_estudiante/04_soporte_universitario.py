@@ -9,14 +9,51 @@ from incidencias import incidencias
 #       "Acceso", "Equipo" y "Red", un contador de casos pendientes,
 #       un set de provincias con pendientes, una lista de tuplas de casos
 #       urgentes y una tupla para el caso con más minutos de atención.
+total_minutos = 0
+conteo_categorias = {"Acceso": 0, "Equipo": 0, "Red": 0}
+casos_pendientes = 0
+provincias_pendientes = set()
+casos_urgentes = []
+caso_mas_largo = ("", 0)  # Estructura: (id, minutos)
+
+cantidad_total = len(incidencias)
 # TODO: Recorra incidencias una sola vez. Actualice los acumuladores y el
 #       conteo de la categoría de cada registro.
+for inc in incidencias:
+    min_atencion = inc["minutos_atencion"]
+    total_minutos += min_atencion
+    
+    # Conteo por categoría
+    categoria = inc["categoria"]
+    if categoria in conteo_categorias:
+        conteo_categorias[categoria] += 1
+        
+    # Actualizar el caso con más minutos de atención de forma global
+    if min_atencion > caso_mas_largo[1]:
+        caso_mas_largo = (inc["id"], min_atencion)
 # TODO: Si un caso NO está resuelto, cuéntelo y agregue su provincia al set.
 #       Si, además, tiene 60 minutos o más, agregue (id, minutos) a la lista
 #       de casos urgentes. Actualice la tupla del caso más largo si corresponde.
+if not inc["resuelto"]:
+        casos_pendientes += 1
+        provincias_pendientes.add(inc["provincia"])
+        
+        if min_atencion >= 60:
+            casos_urgentes.append((inc["id"], min_atencion))
+
+promedio_minutos = total_minutos / cantidad_total if cantidad_total > 0 else 0
 # TODO: Muestre total y promedio de minutos, conteo por categoría, cantidad
 #       de pendientes, provincias con pendientes, casos urgentes y caso más
 #       largo. Compruebe también si "San Jose" pertenece al set.
+print("Total de casos analizados:", cantidad_total)
+print("Total de minutos:", total_minutos)
+print("Promedio de minutos:", promedio_minutos)
+print("Conteo por categoría:", conteo_categorias)
+print("Cantidad de pendientes:", casos_pendientes)
+print("Provincias con pendientes:", provincias_pendientes)
+print("Casos urgentes:", casos_urgentes)
+print("Caso más largo:", caso_mas_largo)
+print("¿San Jose pertenece al set de pendientes?:", "San Jose" in provincias_pendientes)
 # Control: 10 casos; 500 minutos; promedio 50; Acceso 4, Equipo 3, Red 3;
 # 4 pendientes en 4 provincias; urgentes INC-02, INC-05 e INC-07;
 # más largo INC-07 con 95 minutos; hay pendientes en San Jose.
