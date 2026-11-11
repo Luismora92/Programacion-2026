@@ -16,16 +16,33 @@ def explorar_atenciones(atenciones):
     print("P1. Archivo leído correctamente.")
 
     # P2. Cuente las filas con un ciclo. Compruebe que obtuvo 12.
-
+    total_filas = 0
+    for atencion in atenciones:
+        total_filas += 1
+    print(f"P2. Total de filas (atenciones) contadas con ciclo: {total_filas}.")
+    
     # P3. Ejemplo listo para ejecutar. Explique qué tipos y campos observa.
     primer_registro = atenciones[0]
+    print("P3. Campos y tipos de datos en el primer registro:")\
+    for campo, valor in primer_registro.items():
+        print(f" - Campo: '{campo}' | Valor: {valor} | Tipo: {type(valor).__name__}")
 
 
 def contar_y_limpiar(atenciones):
     """Recibe la lista de atenciones y muestra los conteos y sus comprobaciones."""
     print("Etapa 2. Complete y compruebe las preguntas 4 a 8.")
+    
     # P4. Cuente los medicamentos tal como aparecen en el CSV con .get().
     # Muestre el contador y su total.
+    print("\n--- P4: Conteo de medicamentos (Sin Limpiar) ---")
+    conteo_med_raw = {}
+    for atencion in atenciones:
+        med = atencion.get("medicamento", "Desconocido")
+        conteo_med_raw[med] = conteo_med_raw.get(med, 0) + 1
+    
+    for med, total in conteo_med_raw.items():
+        print(f"  -  {med}: {total}")
+    print(f"Total general (raw): {sum(conteo_med_raw.values())}")
 
     # P5. Muestre ejemplos de espacios o mayúsculas en hospital,
     # diagnostico y medicamento.
