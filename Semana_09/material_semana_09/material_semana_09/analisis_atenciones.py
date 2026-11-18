@@ -46,6 +46,12 @@ def contar_y_limpiar(atenciones):
 
     # P5. Muestre ejemplos de espacios o mayúsculas en hospital,
     # diagnostico y medicamento.
+    print("\n--- P5: Ejemplos de variaciones (espacios/mayúsculas) ---")
+    for i in range(min(4, len(atenciones))):
+        h = atenciones[i].get("hospital", "")
+        d = atenciones[i].get("diagnostico", "")
+        m = atenciones[i].get("medicamento", "")
+        print(f"  [{i}] Hospital: '{h}' | Diagnóstico: '{d}' | Medicamento: '{m}'")
 
     # P6. Cuente los medicamentos con strip() y lower(). Muestre el
     # contador limpio y su total. Compare con P4.
