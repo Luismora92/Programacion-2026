@@ -20,6 +20,10 @@ def contar_aprobados_pandas(df: pd.DataFrame, minimo: float) -> int:
     """TODO: haga lo mismo con Pandas, en una sola línea."""
     return 0
 
+#cambios mios LM
+def contar_aprobados_pandas(df: pd.DataFrame, minimo: float) -> int:
+    """TODO: haga lo mismo con Pandas, en una sola línea."""
+    return int((df["promedio"] >= minimo).sum())
 
 # --- Ejercicio B: de Pandas a Python nativo ----------------------------
 def promedio_examen_pandas(df: pd.DataFrame) -> float:
@@ -31,3 +35,15 @@ def promedio_examen_nativo(filas: list) -> float:
     """TODO: haga lo mismo con un ciclo for y un acumulador.
     'filas' es una lista de diccionarios con la clave 'examen'."""
     return 0.0
+
+#cambios Mios LM
+
+def promedio_examen_nativo(filas: list) -> float:
+    """TODO: haga lo mismo con un ciclo for y un acumulador.
+    'filas' es una lista de diccionarios con la clave 'examen'."""
+    if not filas:
+        return 0.0
+    suma = 0.0
+    for fila in filas:
+        suma += fila["examen"]
+    return suma / len(filas)
